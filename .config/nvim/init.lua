@@ -145,6 +145,10 @@ require("nvim-tree").setup({
 	-- show errors/warnings in the file explorer
 	diagnostics = {
 		enable = true,
+	},
+	git = {
+		-- don't hide files/directories in .gitignore
+		ignore = false,
 	}
 })
 
