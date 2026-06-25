@@ -47,6 +47,9 @@ vim.keymap.set({ 'n' }, '<A-l>', '<C-w>l')
 vim.keymap.set('n', '<CR>', 'o<Esc>')
 vim.keymap.set('n', '<S-CR>', 'O<Esc>')
 
+-- map coc's rename action to Alt + R
+vim.keymap.set('n', '<A-r>', ':call CocActionAsync(\'rename\')<Enter>')
+
 -- AUTOCOMMANDS (EVENT HANDLERS)
 --
 -- See `:h lua-guide-autocommands`, `:h autocmd`, `:h nvim_create_autocmd()`
@@ -100,6 +103,8 @@ vim.pack.add({
   -- file explorer
   "https://github.com/nvim-tree/nvim-tree.lua",
   "https://github.com/nvim-tree/nvim-web-devicons",
+
+  "https://github.com/wakatime/vim-wakatime",
 })
 
 require('mini.completion').setup {}
