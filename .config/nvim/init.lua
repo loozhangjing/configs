@@ -117,10 +117,23 @@ vim.pack.add({
   "https://github.com/wakatime/vim-wakatime",
 })
 
+vim.diagnostic.config({
+	-- show errors/warnings next to the offending line
+	virtual_text = true,
+})
+-- static type checker for Python
+vim.lsp.enable('pyright')
+
 -- setup plugins
 require('mini.completion').setup()
 require('quicker').setup()
 require('gitsigns').setup()
-require("nvim-tree").setup()
+
+require("nvim-tree").setup({
+	-- show errors/warnings in the file explorer
+	diagnostics = {
+		enable = true,
+	}
+})
 
 vim.cmd('colorscheme kanagawa')
