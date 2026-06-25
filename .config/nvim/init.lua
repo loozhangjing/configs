@@ -1,4 +1,4 @@
--- disable netrw (neovim's default file explorer)
+-- disable netrw (neovim's default file explorer), because nvim-tree (the file explorer in use) recommends it
 vim.g.loaded_netrw       = 1
 vim.g.loaded_netrwPlugin = 1
 
@@ -20,11 +20,12 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 vim.o.cursorline = true 	-- highlight the line where the cursor is on
-vim.o.scrolloff = 0			-- keep this many screen lines above/below the cursor
+vim.o.scrolloff = 6			-- keep this many screen lines above/below the cursor
+
 vim.o.list = true			-- make characters defined in `vim.opt.listchars` visible
 vim.opt.listchars = {		-- show invisible characters
-	tab = '| ',
-	trail = '·',			-- trailing whitespace
+	tab = '| ',				-- tabs are shown as a '|   ' (the space is repeated for the length of the tab)
+	trail = '·',			-- trailing whitespace is shown as a '·'
 }
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
@@ -43,12 +44,15 @@ vim.keymap.set({ 'n' }, '<A-j>', '<C-w>j')
 vim.keymap.set({ 'n' }, '<A-k>', '<C-w>k')
 vim.keymap.set({ 'n' }, '<A-l>', '<C-w>l')
 
--- add newlines without going into insert mode with Enter and Shift + Enter
+-- in normal mode, add a newline above the current line with Enter or below the current line with Shift + Enter
 vim.keymap.set('n', '<CR>', 'o<Esc>')
 vim.keymap.set('n', '<S-CR>', 'O<Esc>')
 
 -- map coc's rename action to Alt + R
 vim.keymap.set('n', '<A-r>', ':call CocActionAsync(\'rename\')<Enter>')
+
+-- open the file explorer & focus on the current file with Space + E
+vim.keymap.set('n', '<leader>e', ':NvimTreeFindFileToggle<CR>') 
 
 -- AUTOCOMMANDS (EVENT HANDLERS)
 --
@@ -82,38 +86,41 @@ end, { desc = 'Print the git blame for the current line' })
 -- 'updatetime' and when going to insert mode.
 vim.cmd('packadd! nohlsearch')
 
--- Install third-party plugins via "vim.pack.add()".
+-- install third-party plugins via "vim.pack.add()".
 vim.pack.add({
-  -- Quickstart configs for LSP
+  -- quickstart configs for the nvim LSP client
   'https://github.com/neovim/nvim-lspconfig',
-  -- Autocompletion
+  -- autocomplete
   'https://github.com/nvim-mini/mini.completion',
-  -- Enhanced quickfix/loclist
+  -- improved UI & workflow for the nvim quickfix
   'https://github.com/stevearc/quicker.nvim',
-  -- Git integration
+  -- git integration for buffers
   'https://github.com/lewis6991/gitsigns.nvim',
-  -- Kanagawa colour scheme
-  'https://github.com/rebelot/kanagawa.nvim',
-  -- filetypes
+
+  -- syntax highlighting, indentation, autocomplete etc. for different languages
   'https://github.com/evanleck/vim-svelte',
   'https://github.com/pangloss/vim-javascript',
   'https://github.com/othree/html5.vim',
+
   -- Intellisense
   'https://github.com/neoclide/coc.nvim',
+
   -- file explorer
   "https://github.com/nvim-tree/nvim-tree.lua",
+  -- Nerd Font icons (glyphs) for nvim plugins
   "https://github.com/nvim-tree/nvim-web-devicons",
 
+  -- Kanagawa colour scheme
+  'https://github.com/rebelot/kanagawa.nvim',
+
+  -- analytics & time tracking
   "https://github.com/wakatime/vim-wakatime",
 })
 
-require('mini.completion').setup {}
-require('quicker').setup {}
-require('gitsigns').setup {}
+-- setup plugins
+require('mini.completion').setup()
+require('quicker').setup()
+require('gitsigns').setup()
+require("nvim-tree").setup()
 
 vim.cmd('colorscheme kanagawa')
-
--- setup nvim-tree
-require("nvim-tree").setup()
--- custom keybinds for nvim-tree
-vim.keymap.set('n', '<leader>e', ':NvimTreeFindFileToggle<CR>') -- open file explorer & focus on current file with space + e
