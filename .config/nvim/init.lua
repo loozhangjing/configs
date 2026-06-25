@@ -90,6 +90,8 @@ vim.cmd('packadd! nohlsearch')
 vim.pack.add({
   -- quickstart configs for the nvim LSP client
   'https://github.com/neovim/nvim-lspconfig',
+  -- tree-sitter (builds syntax trees from source code), used here for better Python syntax highlighting
+  'https://github.com/nvim-treesitter/nvim-treesitter',
   -- autocomplete
   'https://github.com/nvim-mini/mini.completion',
   -- improved UI & workflow for the nvim quickfix
@@ -118,11 +120,21 @@ vim.pack.add({
 })
 
 vim.diagnostic.config({
-	-- show errors/warnings next to the offending line
-	virtual_text = true,
+	-- show errors/warnings below the offending line when the cursor is on that line
+	virtual_lines = {
+		current_line = true,
+	}
 })
+
 -- static type checker for Python
-vim.lsp.enable('pyright')
+vim.lsp.enable('pyright') -- installation: npm install -g pyright
+vim.lsp.enable('ruff') -- installation: pipx install ruff
+
+-- treesitter syntax highlighting for Python
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'python' },
+  callback = function() vim.treesitter.start() end,
+})
 
 -- setup plugins
 require('mini.completion').setup()
