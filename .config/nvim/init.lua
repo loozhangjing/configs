@@ -14,6 +14,7 @@ vim.o.relativenumber = true -- show line numbers relative to where the cursor is
 
 vim.opt.tabstop = 4			--- width of a tab character
 vim.opt.shiftwidth = 4		--- width of an indent
+vim.opt.breakindent = true	--- indent wrapped lines
 
 -- case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
