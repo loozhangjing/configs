@@ -118,13 +118,14 @@ vim.diagnostic.config({
 
 -- static type checker for Python
 vim.lsp.enable('pyright') -- installation: npm install -g pyright
-vim.lsp.enable('ruff') -- installation: pipx install ruff
+vim.lsp.enable('ruff') -- installation: uv tool install ruff@latest
 
 -- treesitter syntax highlighting for Python
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'python' },
   callback = function() vim.treesitter.start() end,
 })
+-- if there's no syntax highlighting for Python files yet, run `:TSInstall python`
 
 -- setup plugins
 require('mini.completion').setup()
