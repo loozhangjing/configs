@@ -100,14 +100,6 @@ vim.pack.add({
   -- git integration for buffers
   'https://github.com/lewis6991/gitsigns.nvim',
 
-  -- syntax highlighting, indentation, autocomplete etc. for different languages
-  'https://github.com/evanleck/vim-svelte',
-  'https://github.com/pangloss/vim-javascript',
-  'https://github.com/othree/html5.vim',
-
-  -- Intellisense
-  'https://github.com/neoclide/coc.nvim',
-
   -- file explorer
   "https://github.com/nvim-tree/nvim-tree.lua",
   -- Nerd Font icons (glyphs) for nvim plugins
