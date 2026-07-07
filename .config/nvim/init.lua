@@ -115,9 +115,6 @@ vim.pack.add({
 
   -- Kanagawa colour scheme
   'https://github.com/rebelot/kanagawa.nvim',
-
-  -- analytics & time tracking
-  "https://github.com/wakatime/vim-wakatime",
 })
 
 vim.diagnostic.config({
