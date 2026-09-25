@@ -117,8 +117,10 @@ vim.diagnostic.config({
 })
 
 -- static type checker for Python
-vim.lsp.enable('pyright') -- installation: npm install -g pyright
+vim.lsp.enable('pyright') -- installation: npm install [-g] pyright
 vim.lsp.enable('ruff') -- installation: uv tool install ruff@latest
+vim.lsp.enable('svelte') -- installation: npm install [-g] svelte-language-server
+
 
 -- treesitter syntax highlighting for Python
 vim.api.nvim_create_autocmd('FileType', {
@@ -127,7 +129,13 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 -- if there's no syntax highlighting for Python files yet, run `:TSInstall python`
 
--- setup plugins
+-- treesitter syntax highlighting for Svelte files (including the HTML, JavaScript and CSS within it)
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'svelte' },
+  callback = function() vim.treesitter.start() end,
+})
+-- if there's no syntax highlighting, run `:TSInstall html javascript typescript css`
+
 require('mini.completion').setup()
 require('quicker').setup()
 require('gitsigns').setup()
